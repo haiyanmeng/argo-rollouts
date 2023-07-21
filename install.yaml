@@ -2766,6 +2766,18 @@ spec:
                           properties:
                             address:
                               type: string
+                            authentication:
+                              properties:
+                                sigv4:
+                                  properties:
+                                    profile:
+                                      type: string
+                                    region:
+                                      type: string
+                                    roleArn:
+                                      type: string
+                                  type: object
+                              type: object
                             query:
                               type: string
                           type: object
@@ -5713,6 +5725,18 @@ spec:
                           properties:
                             address:
                               type: string
+                            authentication:
+                              properties:
+                                sigv4:
+                                  properties:
+                                    profile:
+                                      type: string
+                                    region:
+                                      type: string
+                                    roleArn:
+                                      type: string
+                                  type: object
+                              type: object
                             query:
                               type: string
                           type: object
@@ -8546,6 +8570,18 @@ spec:
                           properties:
                             address:
                               type: string
+                            authentication:
+                              properties:
+                                sigv4:
+                                  properties:
+                                    profile:
+                                      type: string
+                                    region:
+                                      type: string
+                                    roleArn:
+                                      type: string
+                                  type: object
+                              type: object
                             query:
                               type: string
                           type: object
@@ -11387,6 +11423,17 @@ spec:
                         x-kubernetes-int-or-string: true
                       postPromotionAnalysis:
                         properties:
+                          analysisRunMetadata:
+                            properties:
+                              annotations:
+                                additionalProperties:
+                                  type: string
+                                type: object
+                              labels:
+                                additionalProperties:
+                                  type: string
+                                type: object
+                            type: object
                           args:
                             items:
                               properties:
@@ -11444,6 +11491,17 @@ spec:
                         type: object
                       prePromotionAnalysis:
                         properties:
+                          analysisRunMetadata:
+                            properties:
+                              annotations:
+                                additionalProperties:
+                                  type: string
+                                type: object
+                              labels:
+                                additionalProperties:
+                                  type: string
+                                type: object
+                            type: object
                           args:
                             items:
                               properties:
@@ -11531,6 +11589,17 @@ spec:
                         type: integer
                       analysis:
                         properties:
+                          analysisRunMetadata:
+                            properties:
+                              annotations:
+                                additionalProperties:
+                                  type: string
+                                type: object
+                              labels:
+                                additionalProperties:
+                                  type: string
+                                type: object
+                            type: object
                           args:
                             items:
                               properties:
@@ -11664,6 +11733,17 @@ spec:
                           properties:
                             analysis:
                               properties:
+                                analysisRunMetadata:
+                                  properties:
+                                    annotations:
+                                      additionalProperties:
+                                        type: string
+                                      type: object
+                                    labels:
+                                      additionalProperties:
+                                        type: string
+                                      type: object
+                                  type: object
                                 args:
                                   items:
                                     properties:
@@ -11922,6 +12002,10 @@ spec:
                                 type: string
                               ingress:
                                 type: string
+                              ingresses:
+                                items:
+                                  type: string
+                                type: array
                               rootService:
                                 type: string
                               servicePort:
@@ -11939,7 +12023,6 @@ spec:
                                 - enabled
                                 type: object
                             required:
-                            - ingress
                             - servicePort
                             type: object
                           ambassador:
@@ -14510,6 +14593,8 @@ spec:
                     - arn
                     - name
                     type: object
+                  ingress:
+                    type: string
                   loadBalancer:
                     properties:
                       arn:
@@ -14535,6 +14620,49 @@ spec:
                     - name
                     type: object
                 type: object
+              albs:
+                items:
+                  properties:
+                    canaryTargetGroup:
+                      properties:
+                        arn:
+                          type: string
+                        fullName:
+                          type: string
+                        name:
+                          type: string
+                      required:
+                      - arn
+                      - name
+                      type: object
+                    ingress:
+                      type: string
+                    loadBalancer:
+                      properties:
+                        arn:
+                          type: string
+                        fullName:
+                          type: string
+                        name:
+                          type: string
+                      required:
+                      - arn
+                      - name
+                      type: object
+                    stableTargetGroup:
+                      properties:
+                        arn:
+                          type: string
+                        fullName:
+                          type: string
+                        name:
+                          type: string
+                      required:
+                      - arn
+                      - name
+                      type: object
+                  type: object
+                type: array
               availableReplicas:
                 format: int32
                 type: integer
@@ -15128,7 +15256,7 @@ spec:
         app.kubernetes.io/name: argo-rollouts
     spec:
       containers:
-      - image: quay.io/argoproj/argo-rollouts:v1.5.1
+      - image: quay.io/argoproj/argo-rollouts:latest
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
