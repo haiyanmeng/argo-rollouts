@@ -94,8 +94,11 @@ spec:
         name: sayhelloservice
         ports:
         - containerPort: 8443
+          protocol: TCP
         - containerPort: 8444
+          protocol: TCP
         - containerPort: 9090
+          protocol: TCP
         readinessProbe:
           grpc:
             port: 8444
